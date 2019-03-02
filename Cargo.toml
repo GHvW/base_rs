@@ -1,0 +1,6 @@
+[package]
+name = "base_rs"
+version = "0.1.0"
+authors = ["Garrett van Wageningen <ghvanw283@gmail.com>"]
+
+[dependencies]
