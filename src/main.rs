@@ -1,8 +1,8 @@
 mod stack;
-use stack::LLStack;
+use stack::LinkedStack;
 
 fn main() {
     println!("Hello, world!");
 
-    let mut stack: LLStack<i32> = LLStack::new();
+    let mut stack: LinkedStack<i32> = LinkedStack::new();
 }

@@ -20,21 +20,21 @@ trait Stack<T> {
     fn size(&self) -> usize;
 }
 
-pub struct LLStack<T> {
+pub struct LinkedStack<T> {
     head: Option<Box<Node<T>>>,
     size: usize
 }
 
-impl<T> LLStack<T> {
+impl<T> LinkedStack<T> {
     pub fn new() -> Self {
-        LLStack {
+        LinkedStack {
             head: None,
             size: 0
         }
     }
 }
 
-impl<T> Stack<T> for LLStack<T> {
+impl<T> Stack<T> for LinkedStack<T> {
     fn push(&mut self, data: T) -> () {
         let mut new_node = Box::new(Node::new(data));
         new_node.next = self.head.take();
@@ -94,3 +94,58 @@ impl<T> Stack<T> for LLStack<T> {
 //     }
 // }
 
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pop_test() {
+        let mut stack = LinkedStack::new();
+
+        assert_eq!(None, stack.pop());
+
+        stack.push(2);
+        stack.push(3);
+
+        assert_eq!(Some(3), stack.pop());
+        assert_eq!(Some(2), stack.pop());
+    }
+
+    #[test]
+    fn peek_test() {
+        let mut stack = LinkedStack::new();
+
+        assert_eq!(None, stack.peek());
+
+        stack.push(1);
+        stack.push(2);
+
+        assert_eq!(Some(&2), stack.peek());
+        assert_eq!(Some(&2), stack.peek());
+
+        stack.pop();
+        assert_eq!(Some(&1), stack.peek());
+    }
+
+    #[test]
+    fn size_test() {
+        let mut stack = LinkedStack::new();
+
+        assert_eq!(0, stack.size());
+
+        stack.pop();
+        assert_eq!(0, stack.size());
+
+        stack.push(1);
+        stack.push(2);
+
+        assert_eq!(2, stack.size());
+
+        stack.pop();
+        assert_eq!(1, stack.size());
+
+        stack.peek();
+        assert_eq!(1, stack.size());
+    }
+}
