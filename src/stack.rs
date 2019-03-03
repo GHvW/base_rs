@@ -1,17 +1,17 @@
 
-pub struct Node<T> {
-    pub data: T,
-    pub next: Option<Box<Node<T>>>
+struct Node<T> {
+    data: T,
+    next: Option<Box<Node<T>>>
 }
 
-impl<T> Node<T> {
-    fn new(data: T) -> Self {
-        Node {
-            data: data,
-            next: None
-        }
-    }
-}
+// impl<T> Node<T> {
+//     fn new(data: T) -> Self {
+//         Node {
+//             data: data,
+//             next: None
+//         }
+//     }
+// }
 
 pub trait Stack<T> {
     fn push(&mut self, data: T) -> ();
@@ -36,8 +36,11 @@ impl<T> LinkedStack<T> {
 
 impl<T> Stack<T> for LinkedStack<T> {
     fn push(&mut self, data: T) -> () {
-        let mut new_node = Box::new(Node::new(data));
-        new_node.next = self.head.take();
+        let new_node = Box::new(Node {
+            data: data,
+            next: self.head.take()
+        });
+
         self.head = Some(new_node);
         self.size += 1;
         ()
