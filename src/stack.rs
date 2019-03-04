@@ -13,10 +13,12 @@ struct Node<T> {
 //     }
 // }
 
-pub trait Stack<T> {
-    fn push(&mut self, data: T) -> ();
-    fn pop(&mut self) -> Option<T>;
-    fn peek(&self) -> Option<&T>;
+pub trait Stack {
+    type Data;
+
+    fn push(&mut self, data: Self::Data) -> ();
+    fn pop(&mut self) -> Option<Self::Data>;
+    fn peek(&self) -> Option<&Self::Data>;
     fn size(&self) -> usize;
 }
 
@@ -34,7 +36,9 @@ impl<T> LinkedStack<T> {
     }
 }
 
-impl<T> Stack<T> for LinkedStack<T> {
+impl<T> Stack for LinkedStack<T> {
+    type Data = T;
+
     fn push(&mut self, data: T) -> () {
         let new_node = Box::new(Node {
             data: data,
@@ -86,7 +90,8 @@ impl<T> VecStack<T> {
     }
 }
 
-impl<T> Stack<T> for VecStack<T> {
+impl<T> Stack for VecStack<T> {
+    type Data = T;
 
     fn push(&mut self, data: T) -> () {
         self.vec.push(data);
@@ -109,6 +114,8 @@ impl<T> Stack<T> for VecStack<T> {
         self.vec.len()
     }
 }
+
+
 
 
 #[cfg(test)]
