@@ -1,7 +1,7 @@
 type VertexRef = usize;
 
 pub struct Graph {
-    vertices: Vec<Vec<VertexRef>>,
+    pub vertices: Vec<Vec<VertexRef>>,
     edge_count: usize
 }
 

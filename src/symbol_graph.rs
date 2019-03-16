@@ -100,6 +100,32 @@ mod tests {
       sg.add_edge(&v3, &v1);
 
       assert_eq!(2, sg.e());
+    }
+
+    #[test]
+    fn connection_check_text() {
+      let v1 = "Garrett";
+      let v2 = "Joe";
+      let v3 = "Meg";
     
+      let mut sg = SymbolGraph::new();
+
+      assert_eq!(0, sg.e());
+
+      sg.add_node(&v1);
+      sg.add_node(&v2);
+
+      sg.add_edge(&v2, &v1);
+
+      assert_eq!(1, sg.e());
+
+      sg.add_node(&v3);
+      sg.add_edge(&v3, &v1);
+
+      assert_eq!(2, sg.e());   
+    
+      let idx = *sg.symbol_table.get(&v1).unwrap();
+      let connections = &sg.graph.vertices[idx];
+      assert_eq!(vec![1 as usize, 2 as usize], *connections);
     }
 }
