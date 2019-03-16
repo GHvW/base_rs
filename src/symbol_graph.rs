@@ -43,18 +43,6 @@ impl<'a, T: Eq + Hash> SymbolGraph<'a, T> {
         ()
     }
     
-    // fn add_nodes(&mut self, mut nodes: &Vec<T>) -> () {
-    //     let start = self.vertices.len();
-        
-    //     self.vertices.append(&mut nodes);
-        
-    //     for i in start..self.vertices.len() {
-    //         self.symbol_table.insert(&self.vertices[i], i);
-    //         let graph_key = self.graph.add_node();
-    //         assert!(i == graph_key, "keys are out of sync!!!");
-    //     }
-    // }
-
     pub fn add_edge(&mut self, v1: &'a T, v2: &'a T) -> () {
         // add handling if v1 and v2 don't exist
         let first = self.symbol_table.get(v1);
