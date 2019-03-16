@@ -5,10 +5,10 @@ use graph::Graph;
 
 type VertexRef = usize;
 
-pub struct SymbolGraph<'a, T: 'a + Eq + Hash> { // will probably need lifetime references
+pub struct SymbolGraph<'a, T: 'a + Eq + Hash> { 
     vertices: Vec<&'a T>,
     symbol_table: HashMap<&'a T, VertexRef>,
-    graph: Graph // will probably need lifetime references
+    graph: Graph 
 }
 
 impl<'a, T: Eq + Hash> SymbolGraph<'a, T> {
@@ -28,7 +28,6 @@ impl<'a, T: Eq + Hash> SymbolGraph<'a, T> {
       self.graph.e()
     }
 
-    // https://learning-rust.github.io/docs/c3.lifetimes.html
     // graph vertices len needs to stay in sync with keys len
     pub fn add_node(&mut self, data: &'a T) -> () {
         // handle data if already exists in table
