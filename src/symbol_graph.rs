@@ -54,6 +54,11 @@ impl<'a, T: Eq + Hash> SymbolGraph<'a, T> {
         self.graph.add_edge(*first.unwrap(), *second.unwrap()); // hopefully this is safe
         ()
     }
+
+    // fix this at some point. will panic if index out of bounds
+    pub fn data_of(&self, index: usize) -> &'a T {
+      self.vertices[index]
+    }
 }
 
 #[cfg(test)]
