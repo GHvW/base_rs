@@ -69,7 +69,7 @@ impl BreadthFirstPaths {
   }
 
   pub fn has_path_to(&self, vertex: usize) -> bool {
-    *self.marked.get(vertex).unwrap()
+    self.marked.get(vertex).map_or(false, |val| *val)
   }
 
   pub fn path_to(&self, vertex: usize) -> Option<impl Iterator<Item = usize>> {
@@ -153,4 +153,9 @@ mod tests {
     assert_eq!(Some(5 as usize), path.next());
     assert_eq!(Some(8 as usize), path.next());
   }
+
+  // #[test]
+  // fn test_symbol_path_to() {
+
+  // }
 }
