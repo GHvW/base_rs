@@ -94,6 +94,7 @@ impl BreadthFirstPaths {
 #[cfg(test)]
 mod tests {
   use super::*;
+  use symbol_graph::SymbolGraph;
 
   #[test]
   fn test_has_path_to() {
@@ -121,6 +122,8 @@ mod tests {
     assert!(paths_for_7.has_path_to(5));
     assert!(paths_for_7.has_path_to(6));
     assert!(paths_for_7.has_path_to(8));
+
+    assert!(!paths_for_7.has_path_to(1000));
   }
 
   #[test]
@@ -154,8 +157,44 @@ mod tests {
     assert_eq!(Some(8 as usize), path.next());
   }
 
-  // #[test]
-  // fn test_symbol_path_to() {
+  #[test]
+  fn test_symbol_path_to() {
+      let v0 = "Umi";
+      let v1 = "Garrett";
+      let v2 = "Joe";
+      let v3 = "Meg";
+      let v4 = "Alex";
+      let v5 = "Sonya";
+      let v6 = "Ike";
+      let v7 = "Reed";
+      let v8 = "Belle";
+    
+      let mut sg = SymbolGraph::new();
 
-  // }
+      sg.add_node(&v0);
+      sg.add_node(&v1);
+      sg.add_node(&v2);
+      sg.add_node(&v3);
+      sg.add_node(&v4);
+      sg.add_node(&v5);
+      sg.add_node(&v6);
+      sg.add_node(&v7);
+      sg.add_node(&v8);
+
+      sg.add_edge(&v1, &v3);
+      sg.add_edge(&v1, &v4);
+      sg.add_edge(&v3, &v5);
+      sg.add_edge(&v5, &v8);
+      sg.add_edge(&v3, &v7);
+      sg.add_edge(&v5, &v6);
+      sg.add_edge(&v4, &v8);
+
+      let paths_for_7 = BreadthFirstPaths::new(sg.graph(), 7);
+
+      let path = paths_for_7.path_to(8).unwrap();
+
+      let result: Vec<&str> = path.map(|val| *sg.data_of(val)).collect::<Vec<&str>>();
+
+      assert_eq!(vec!["Reed", "Meg", "Sonya", "Belle"], result);
+  }
 }

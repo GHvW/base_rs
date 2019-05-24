@@ -28,6 +28,10 @@ impl<'a, T: Eq + Hash> SymbolGraph<'a, T> {
       self.graph.e()
     }
 
+    pub fn graph(&self) -> &Graph {
+      &self.graph
+    }
+
     // graph vertices len needs to stay in sync with keys len
     pub fn add_node(&mut self, data: &'a T) -> () {
         // handle data if already exists in table
